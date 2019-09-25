@@ -33,6 +33,7 @@ for config in configs:
 
     # Search and sync events
     for uid, e in event_registry.events.items():
+        print("")
         print(f"Analyzing {uid}: {e}")
         
         # Skip sync if event has already started
@@ -55,4 +56,3 @@ for config in configs:
         if e['recreate']:
             gcalendar.delete_event(e['id'])
             gcalendar.create_event(**e)
-        print("")
