@@ -33,3 +33,7 @@ def is_started(datetime_str):
     now = datetime.datetime.now().astimezone(UTC)
     d = parser.parse(datetime_str)
     return (d-now).total_seconds() < 60  # grace period
+
+def now_str():
+    now = datetime.datetime.now().astimezone(TIMEZONE)
+    return now.strftime("%d/%m/%Y, %H:%M:%S")

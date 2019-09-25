@@ -7,7 +7,7 @@ import datetime
 from tools.gcloud import GCalendar
 from tools.degage import Dégage
 from tools.events import EventRegistry
-from tools.utils import is_started
+from tools.utils import is_started, now_str
 
 # read configs
 config_path = os.path.join(os.path.dirname(__file__), 'config.json')
@@ -16,8 +16,7 @@ with open(config_path, 'r') as f:
 
 # For each config (=degage account + gcalendar), do the syncing
 for config in configs:
-    now = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
-    print(f"{now}: Starting sync for {config['degage_email']}")
+    print(f"{now_str()}: Starting sync for {config['degage_email']}")
     gcalendar = GCalendar(config)
     degage = Dégage(config)
 
