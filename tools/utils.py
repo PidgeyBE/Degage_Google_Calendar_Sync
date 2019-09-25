@@ -1,6 +1,7 @@
 import datetime
 from dateutil import parser
 import pytz
+import time
 
 TIMEZONE_STR = 'Europe/Brussels'
 TIMEZONE = pytz.timezone(TIMEZONE_STR)
@@ -28,7 +29,7 @@ def str_to_rfc3339(datetime_str):
     utc = d.astimezone(UTC)
     return utc.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-def is_future(datetime_str):
-    now = datetime.datetime.now().astimezone(TIMEZONE)
+def is_started(datetime_str):
+    now = datetime.datetime.now().astimezone(UTC)
     d = parser.parse(datetime_str)
-    return (d-now).total_seconds() > -60*60*2
+    return (d-now).total_seconds() < 60  # grace period

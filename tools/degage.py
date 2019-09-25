@@ -2,7 +2,7 @@ import requests
 import re
 from icalendar import Calendar
 
-from .utils import str_to_gtime, str_to_degage, is_future
+from .utils import str_to_gtime, str_to_degage
 
 MAGIC_STRING = "###autosynced_by_pidgey---dont_remove###"
 
@@ -69,18 +69,18 @@ class Dégage:
                 description = e.get('description').to_ical().decode("utf-8")
                 _, id = description.rsplit('?id=', 1)
                 summary = f"{prefix}{e.get('summary').to_ical().decode('utf-8')}"
-                if is_future(start):
-                    # Determine origin of event
-                    result = self.session.get(f"https://degapp.be/trip?id={id}")
-                    origin = 'google' if MAGIC_STRING in result.text else 'degage'
-                    out.append({
-                        'summary': summary,
-                        'start': start,
-                        'end': stop,
-                        'description': description,
-                        'id': id,
-                        'origin': origin
-                    })
+
+                # Determine origin of event
+                result = self.session.get(f"https://degapp.be/trip?id={id}")
+                origin = 'google' if MAGIC_STRING in result.text else 'degage'
+                out.append({
+                    'summary': summary,
+                    'start': start,
+                    'end': stop,
+                    'description': description,
+                    'id': id,
+                    'origin': origin
+                })
         return out
     
     def create_event(self, summary, description, start, end, **kwargs):

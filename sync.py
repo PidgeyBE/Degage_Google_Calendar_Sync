@@ -6,8 +6,8 @@ import datetime
 
 from tools.gcloud import GCalendar
 from tools.degage import Dégage
-
 from tools.events import EventRegistry
+from tools.utils import is_started
 
 # read configs
 config_path = os.path.join(os.path.dirname(__file__), 'config.json')
@@ -35,6 +35,12 @@ for config in configs:
     # Search and sync events
     for uid, e in event_registry.events.items():
         print(f"Analyzing {uid}: {e}")
+        
+        # Skip sync if event has already started
+        if is_started(e['start']):
+            print("Skipping because event already started")
+            continue
+
         if e['degage'] and not e['google']:
             if e['origin'] == 'degage':
                 gcalendar.create_event(**e)
