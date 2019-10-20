@@ -15,6 +15,15 @@ Current functionality:
 
 The project is written in Python and is ran by a cronjob on a Raspberry Pi.
 
+## Demo
+For reservations made by others, a calendar event is created with the name of the car (in my case GreyLegend) and a hyperlink to the Dégage website.
+The reservations you make yourself can have a custom name.
+
+<img src="example.jpg" width="250px"><img src="example2.jpg" width="250px">
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/rwK-EHoO47E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Use
+
 To make use of it, you'll first need to:
 1. Create a Dégage agenda in Google Calendar and put your calendar_id in [config.json](config.json)
 2. Follow the steps described [here](https://medium.com/@denisluiz/python-with-google-sheets-service-account-step-by-step-8f74c26ed28e) to set up a Google Developers project and create a service account key. But instead of adding `Google Sheets API`, add `Google Calendar API`. Also share your Dégage Google calendar with your service account email, as described for Google Sheets. After this point you can stop following that tutorial.
