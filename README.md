@@ -20,7 +20,7 @@ For reservations made by others, a calendar event is created with the name of th
 The reservations you make yourself can have a custom name.
 
 <img src="example.jpg" width="250px"><img src="example2.jpg" width="250px">
-[![Watch demo video](yt.jpg)](https://www.youtube.com/watch?v=rwK-EHoO47E)
+[![Watch demo video](yt.JPG)](https://www.youtube.com/watch?v=rwK-EHoO47E)
 
 
 ## Use
