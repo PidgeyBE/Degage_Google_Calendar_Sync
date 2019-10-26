@@ -1,5 +1,6 @@
 import requests
 import re
+import datetime
 from icalendar import Calendar
 
 from .utils import str_to_gtime, str_to_degage
@@ -105,3 +106,33 @@ class Dégage:
             print(f"[ERROR] Couldn't delete {id} from degage")
 
 
+    def percentage_of_kms(self):
+        """ Prints the percentage of kms you have driven """
+        year = datetime.datetime.now().year
+        quarters = [['01', '02', '03'], ['04', '05', '06'],
+                    ['07', '08', '09'], ['10', '11', '12']]
+        months = ['jan', 'feb', 'maa', 'apr', 'mei', 'jun',
+                  'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
+
+        for quarter in quarters:
+            my_kms = 0
+            other_kms = 0
+            for month in quarter:
+                date = f'{year}-{month}-01'
+                result = self.session.get(
+                    f"https://degapp.be/trips/overview?id={self.car}&date={date}")
+
+                splits = result.text.split("km)")
+                for split in splits[:-1]:
+                    rest, kms = split.rsplit('(', 1)
+                    if f'{months[int(month)-1]} {year}' in rest:
+                        if 'Jij' in rest:
+                            my_kms += int(kms)
+                        else:
+                            other_kms += int(kms)
+            try:
+                percentage = round(100*my_kms/(my_kms+other_kms))
+                print(f"You drove {percentage}% of a total of "
+                      f"{my_kms+other_kms} kms in quarter {quarter} of {year}.")
+            except ZeroDivisionError:
+                pass
